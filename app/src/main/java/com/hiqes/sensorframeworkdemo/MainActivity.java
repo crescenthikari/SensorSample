@@ -59,6 +59,9 @@ public class MainActivity extends ActionBarActivity implements SensorEventListen
         sb.append("Type: ");
         sb.append(mSensor.getType());
         sb.append("\n");
+        sb.append("Maximum Range: ");
+        sb.append(mSensor.getMaximumRange());
+        sb.append("\n");
         sb.append("Timestamp: ");
         sb.append(event.timestamp);
         sb.append("\n");
