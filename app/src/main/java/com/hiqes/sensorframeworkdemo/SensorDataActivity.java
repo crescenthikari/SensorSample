@@ -6,30 +6,38 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 
-public class SensorData extends ActionBarActivity implements SensorEventListener {
+public class SensorDataActivity extends ActionBarActivity implements SensorEventListener {
+    private static final String TAG = SensorDataActivity.class.getName();
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
-    private int sensorType;
-    private TextView txtSensorData;
+    private TextView mTxtSensorData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sensordata);
-        txtSensorData = (TextView) findViewById(R.id.txtSensorData);
 
-        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sensorType = getIntent().getIntExtra("Type",1);
-        mSensor = mSensorManager.getDefaultSensor(sensorType);
+        setContentView(R.layout.activity_sensordata);
+        mTxtSensorData = (TextView)findViewById(R.id.txtSensorData);
+
+        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        int sensorType = getIntent().getIntExtra("Type", -1);
+        if (sensorType == -1) {
+            Log.e(TAG, "No type provided");
+            finish();
+        } else {
+            mSensor = mSensorManager.getDefaultSensor(sensorType);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mSensorManager.registerListener(this,mSensor,SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -41,18 +49,22 @@ public class SensorData extends ActionBarActivity implements SensorEventListener
     @Override
     public void onSensorChanged(SensorEvent event) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Sensor Name: " + event.sensor.getName());
+        sb.append("Sensor Name: ");
+        sb.append(event.sensor.getName());
         sb.append("\n");
-        sb.append("Time: " + event.timestamp);
+        sb.append("Time: ");
+        sb.append(event.timestamp);
         sb.append("\n");
-        sb.append("Accuracy: " + event.accuracy);
+        sb.append("Accuracy: ");
+        sb.append(event.accuracy);
         sb.append("\n");
 
         for(float v : event.values){
             sb.append(v);
             sb.append("\n");
         }
-        txtSensorData.setText(sb.toString());
+
+        mTxtSensorData.setText(sb.toString());
     }
 
     @Override

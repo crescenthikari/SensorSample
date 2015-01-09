@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by ketan.parmar on 12/17/2014.
- */
 public class SensorAdapter extends BaseAdapter {
 
     private List<Sensor> arrSensors;
