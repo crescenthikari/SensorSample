@@ -47,18 +47,21 @@ public class SensorAdapter extends BaseAdapter {
             vh.txtVendor =(TextView) view.findViewById(R.id.txtVendor);
             vh.txtVersion = (TextView) view.findViewById(R.id.txtVersion);
             vh.txtSensorType = (TextView) view.findViewById(R.id.txtSensorType);
+            vh.txtPower = (TextView) view.findViewById(R.id.txtPower);
             view.setTag(vh);
         }
-        else
+        else {
             vh = (ViewHolder) view.getTag();
+        }
 
-            Sensor s = arrSensors.get(position);
-            vh.txtMinDelay.setText("Min Delay:" + s.getMinDelay());
-            vh.txtVendor.setText("Vendor: " + s.getVendor() );
-            vh.txtVersion.setText("Version: " + s.getVersion());
-            vh.txtSensorName.setText(s.getName());
-            vh.txtMaxRange.setText("Max Range:" + s.getMaximumRange());
-            vh.txtSensorType.setText("Type: "+getStringType(s.getType()) + " Type Code:" + s.getType());
+        Sensor s = arrSensors.get(position);
+        vh.txtMinDelay.setText("Min Delay:" + s.getMinDelay());
+        vh.txtVendor.setText("Vendor: " + s.getVendor() );
+        vh.txtVersion.setText("Version: " + s.getVersion());
+        vh.txtSensorName.setText(s.getName());
+        vh.txtMaxRange.setText("Max Range:" + s.getMaximumRange());
+        vh.txtSensorType.setText("Type: "+getStringType(s.getType()) + " Type Code:" + s.getType());
+        vh.txtPower.setText("Power: "+s.getPower()+" mA");
         return  view;
     }
 
@@ -69,6 +72,7 @@ public class SensorAdapter extends BaseAdapter {
         TextView txtMaxRange;
         TextView txtMinDelay;
         TextView txtSensorType;
+        TextView txtPower;
     }
 
     private String getStringType(int type){

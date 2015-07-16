@@ -4,13 +4,13 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
 
-public class SensorDataActivity extends ActionBarActivity implements SensorEventListener {
+public class SensorDataActivity extends AppCompatActivity implements SensorEventListener {
     private static final String TAG = SensorDataActivity.class.getName();
 
     private SensorManager mSensorManager;
